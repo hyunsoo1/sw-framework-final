@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+	<div class="register-box">
+		<h2>회원가입</h2>
+		<input type="text" id="user_id" placeholder="아이디 입력" />
+		<input type="password" id="user_pw" placeholder="비밀번호 입력" />
+		<input type="text" id="user_name" placeholder="이름 입력" />
+		<input type="text" id="user_email" placeholder="이메일 입력" />
+		<button id="btn_regist" onclick="registMember()">가입하기</button>
+		
+		<div id="register_message"></div>
+		<div id="member_info"></div>
+		<a th:href="@{/login/login}">로그인으로 이동</a>		
+	</div>
+	
+</body>
+
+<script lang="javascript">
+
+	
+	// 회원가입 함수
+	function registMember() {
+		// 회원 가입할 정보를 변수에 저장
+		var user_id = document.getElementById('user_id').value;
+		var user_pw = document.getElementById('user_pw').value;
+		var user_name = document.getElementById('user_name').value;
+		var user_email = document.getElementById('user_email').value;
+		
+		if (!user_id || !user_pw || !user_name || !user_email) {
+			alert('모든 필드를 입력해주세요.');
+			return false;
+		}
+		
+		fetch('/account/request-register', {
+			method: 'POST',
+			credentials: 'include',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				"userId" : user_id,
+				"userPw" : user_pw,
+				"userName" : user_name,
+				"userEmail" : user_email
+			})
+		})
+		.then(response => response.json())
+		.then(data => {
+			// 회원가입 성공 처리
+			if (data.REPL_CD == '0000') {
+				alert('회원가입이 완료되었습니다.');
+				window.location.href='/rest/login';
+			}
+			// 회원가입 실패 처리
+			else {
+				// alert 띄우는 방식
+				// alert(data.REPL_PAGE_MSG);
+				
+				// 페이지에 출력하는 방식
+				document.getElementById('register_message').innerText = data.REPL_PAGE_MSG;
+			}
+			
+		})
+		.catch(error => {
+			console.error('회원가입 오류 발생', error);
+		})
+		
+		
+	}
+	
+</script>
+
+</html>

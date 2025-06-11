@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원 상세 페이지</title>
+</head>
+<body>
+<div class="member-box">
+	<h2>회원 상세 페이지</h2>
+	<table>
+		<tr>
+			<td>번호</td>
+			<td th:text=""></td>
+		</tr>
+		<tr>
+			<td>아이디</td>
+			<td><input type ="text" id="user_id" th: value="${result.MEMBER_INFO.}"/></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><input type ="text" id="user_id" th: value=""/></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type ="text" id="user_id" th: value=""/></td>
+		</tr>
+		<tr>
+			<td>번호</td>
+			<td><input type ="text" id="user_id" th: value=""/></td>
+		</tr>
+		<tr>
+			<td>번호</td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+
+<button id="btn_modify">수정</button>
+<button id="btn_remove">삭제</button>
+
+</body>
+</html>
